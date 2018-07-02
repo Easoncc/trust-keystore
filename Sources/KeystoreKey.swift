@@ -33,31 +33,32 @@ public struct KeystoreKey {
     public var version = 3
 
     /// Creates a new `Key` with a password.
-    @available(iOS 10.0, *)
+//    @available(iOS 10.0, *)
     public init(password: String, type: AccountType) throws {
         switch type {
         case .encryptedKey:
-            let privateAttributes: [String: Any] = [
-                kSecAttrIsExtractable as String: true,
-            ]
-            let parameters: [String: Any] = [
-                kSecAttrKeyType as String: kSecAttrKeyTypeEC,
-                kSecAttrKeySizeInBits as String: 256,
-                kSecPrivateKeyAttrs as String: privateAttributes,
-            ]
-
-            var pubKey: SecKey?
-            var privKey: SecKey?
-            let status = SecKeyGeneratePair(parameters as CFDictionary, &pubKey, &privKey)
-            guard let privateKey = privKey, status == noErr else {
-                fatalError("Failed to generate key pair")
-            }
-
-            guard let keyRepresentation = SecKeyCopyExternalRepresentation(privateKey, nil) as Data? else {
-                fatalError("Failed to extract new private key")
-            }
-            let key = keyRepresentation[(keyRepresentation.count - 32)...]
-            try self.init(password: password, key: key)
+//            let privateAttributes: [String: Any] = [
+//                kSecAttrIsExtractable as String: true,
+//            ]
+//            let parameters: [String: Any] = [
+//                kSecAttrKeyType as String: kSecAttrKeyTypeEC,
+//                kSecAttrKeySizeInBits as String: 256,
+//                kSecPrivateKeyAttrs as String: privateAttributes,
+//            ]
+//
+//            var pubKey: SecKey?
+//            var privKey: SecKey?
+//            let status = SecKeyGeneratePair(parameters as CFDictionary, &pubKey, &privKey)
+//            guard let privateKey = privKey, status == noErr else {
+//                fatalError("Failed to generate key pair")
+//            }
+//
+//            guard let keyRepresentation = SecKeyCopyExternalRepresentation(privateKey, nil) as Data? else {
+//                fatalError("Failed to extract new private key")
+//            }
+//            let key = keyRepresentation[(keyRepresentation.count - 32)...]
+//            try self.init(password: password, key: key)
+            break
         case .hierarchicalDeterministicWallet:
             let mnemonic = Mnemonic.generate(strength: 128)
             try self.init(password: password, mnemonic: mnemonic, passphrase: "")
