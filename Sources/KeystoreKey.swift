@@ -35,8 +35,8 @@ public struct KeystoreKey {
     /// Creates a new `Key` with a password.
 //    @available(iOS 10.0, *)
     public init(password: String, type: AccountType) throws {
-        switch type {
-        case .encryptedKey:
+//        switch type {
+//        case .encryptedKey:
 //            let privateAttributes: [String: Any] = [
 //                kSecAttrIsExtractable as String: true,
 //            ]
@@ -58,11 +58,11 @@ public struct KeystoreKey {
 //            }
 //            let key = keyRepresentation[(keyRepresentation.count - 32)...]
 //            try self.init(password: password, key: key)
-            break
-        case .hierarchicalDeterministicWallet:
+//            break
+//        case .hierarchicalDeterministicWallet:
             let mnemonic = Mnemonic.generate(strength: 128)
             try self.init(password: password, mnemonic: mnemonic, passphrase: "")
-        }
+//        }
     }
 
     /// Initializes a `Key` from a JSON wallet.
